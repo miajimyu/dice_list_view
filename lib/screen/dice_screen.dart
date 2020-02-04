@@ -13,11 +13,12 @@ class _DiceScreenState extends State<DiceScreen> {
 
   List<Dice> dices = [
     Dice(faces: 2),
+    Dice(number: 2, faces: 3),
     Dice(faces: 4),
     Dice(faces: 6),
+    Dice(number: 2, faces: 6, add: 6),
     Dice(number: 3, faces: 6),
     Dice(faces: 10),
-    Dice(faces: 12),
     Dice(faces: 20),
     Dice(faces: 100),
   ];
@@ -26,8 +27,7 @@ class _DiceScreenState extends State<DiceScreen> {
     final bool alreadySaved = _saved.contains(dice);
     return Card(
       child: ListTile(
-        title:
-            Text('${dice.name} : ${dice?.result} ${dice?.resultAll?.toList()}'),
+        title: Text('${dice.name} : ${dice?.result} ${dice?.resultAll}'),
         onTap: () {
           setState(() {
             dice.roll();

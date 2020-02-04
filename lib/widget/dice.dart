@@ -3,27 +3,39 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class Dice {
-  Dice({this.number = 1, @required this.faces});
+  Dice({this.number = 1, @required this.faces, this.add = 0});
 
   final int number;
   final int faces;
-  int _result;
+  final int add;
+
   List<int> _results = [];
 
-  String get name => '${number}d$faces';
-  int get result => _result;
+  String get name {
+    var str = '';
+    if (add < 0) {
+      str = '-$add';
+    } else if (add > 0) {
+      str = '+$add';
+    }
+
+    return '${number}d$faces$str';
+  }
+
+  int get result {
+    if (_results.isEmpty) {
+      return 0;
+    }
+
+    return _results.reduce((value, element) => value + element) + add;
+  }
+
   List<int> get resultAll => _results;
 
-  int roll() {
-    int sum = 0;
+  void roll() {
     _results?.clear();
     for (var i = 0; i < number; i++) {
-      var result = Random().nextInt(faces) + 1;
-      sum += result;
-      _results?.add(result);
+      _results?.add(Random().nextInt(faces) + 1);
     }
-    _result = sum;
-
-    return _result;
   }
 }
