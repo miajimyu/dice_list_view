@@ -1,5 +1,7 @@
+import 'package:dice/model/history.dart';
 import 'package:dice/widget/dice.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DiceScreen extends StatefulWidget {
   @override
@@ -17,7 +19,7 @@ class _DiceScreenState extends State<DiceScreen> {
     Dice(faces: 4),
     Dice(faces: 6),
     Dice(number: 2, faces: 6, add: 6),
-    Dice(number: 3, faces: 6),
+    Dice(number: 100, faces: 6),
     Dice(faces: 10),
     Dice(faces: 20),
     Dice(faces: 100),
@@ -25,6 +27,8 @@ class _DiceScreenState extends State<DiceScreen> {
 
   Widget _buildRow(Dice dice) {
     final bool alreadySaved = _saved.contains(dice);
+    History history = Provider.of<History>(context, listen: false);
+
     return Card(
       child: ListTile(
         title: Text('${dice.name} : ${dice?.result} ${dice?.resultAll}'),
@@ -32,6 +36,7 @@ class _DiceScreenState extends State<DiceScreen> {
           setState(() {
             dice.roll();
           });
+          history.add(dice);
         },
         trailing: IconButton(
           icon: Icon(
