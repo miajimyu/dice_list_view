@@ -7,7 +7,14 @@ class History extends ChangeNotifier {
   final List<HistoryData> historys = [];
 
   void add(Dice dice) {
-    historys.add(HistoryData(dice: dice, dateTime: DateTime.now()));
+    historys.add(
+      HistoryData(
+        diceName: dice.name,
+        result: dice.result,
+        results: dice.results.toList(),
+        dateTime: DateTime.now(),
+      ),
+    );
     notifyListeners();
   }
 }

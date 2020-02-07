@@ -31,7 +31,7 @@ class _DiceScreenState extends State<DiceScreen> {
 
     return Card(
       child: ListTile(
-        title: Text('${dice.name} : ${dice?.result} ${dice?.resultAll}'),
+        title: Text('${dice.name} : ${dice?.result} ${dice?.results}'),
         onTap: () {
           setState(() {
             dice.roll();

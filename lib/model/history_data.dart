@@ -1,17 +1,15 @@
-import 'package:dice/widget/dice.dart';
 import 'package:flutter/material.dart';
 
 class HistoryData {
   HistoryData({
-    @required this.dice,
+    @required this.diceName,
+    @required this.result,
+    @required this.results,
     @required this.dateTime,
   });
 
-  final Dice dice;
+  final String diceName;
+  final int result;
+  final List<int> results;
   final DateTime dateTime;
-
-  String get name => dice.name;
-  int get result => dice.result;
-  List<int> get results => dice.resultAll;
-  DateTime get time => dateTime;
 }

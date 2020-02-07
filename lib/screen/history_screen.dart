@@ -9,14 +9,14 @@ class HistoryScreen extends StatelessWidget {
     return Consumer<History>(
       builder: (context, value, child) {
         return ListView.builder(
-          reverse: true,
           itemCount: value.historys.length,
           itemBuilder: (context, index) {
+            var i = value.historys.length - index - 1;
             return ListItem(
-              result: value.historys[index].result,
-              name: value.historys[index].name,
-              results: value.historys[index].results,
-              time: value.historys[index].dateTime,
+              result: value.historys[i].result,
+              name: value.historys[i].diceName,
+              results: value.historys[i].results,
+              time: value.historys[i].dateTime,
             );
           },
         );

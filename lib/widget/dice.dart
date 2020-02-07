@@ -30,7 +30,7 @@ class Dice {
     return _results.reduce((value, element) => value + element) + add;
   }
 
-  List<int> get resultAll => _results;
+  List<int> get results => _results;
 
   void roll() {
     _results?.clear();
