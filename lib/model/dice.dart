@@ -3,7 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class Dice {
-  Dice({this.number = 1, @required this.faces, this.add = 0});
+  Dice({
+    this.number = 1,
+    @required this.faces,
+    this.add = 0,
+  });
 
   final int number;
   final int faces;

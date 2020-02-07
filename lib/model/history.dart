@@ -1,9 +1,7 @@
-import 'package:dice/widget/dice.dart';
-import 'package:flutter/material.dart';
-
+import 'dice.dart';
 import 'history_data.dart';
 
-class History extends ChangeNotifier {
+class History {
   final List<HistoryData> historys = [];
 
   void add(Dice dice) {
@@ -15,6 +13,5 @@ class History extends ChangeNotifier {
         dateTime: DateTime.now(),
       ),
     );
-    notifyListeners();
   }
 }

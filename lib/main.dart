@@ -3,6 +3,7 @@ import 'package:dice/screen/history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'model/dice_list.dart';
 import 'model/history.dart';
 
 void main() => runApp(MyApp());
@@ -11,8 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ChangeNotifierProvider<History>(
-        create: (context) => History(),
+      home: MultiProvider(
+        providers: [
+          Provider<History>(create: (_) => History()),
+          ChangeNotifierProvider<DiceList>(create: (_) => DiceList()),
+        ],
         child: HomePage(),
       ),
     );
