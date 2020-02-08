@@ -16,11 +16,17 @@ class DiceList extends ChangeNotifier {
   ];
 
   void roll(int index) {
-    list[index].roll();
+    list[index]?.roll();
     notifyListeners();
   }
 
   void add(Dice dice) {
-    list.add(dice);
+    list?.add(dice);
+    notifyListeners();
+  }
+
+  void remove(int index) {
+    list?.removeAt(index);
+    notifyListeners();
   }
 }
