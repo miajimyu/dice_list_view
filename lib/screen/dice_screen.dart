@@ -1,51 +1,50 @@
-import 'package:dice/model/dice.dart';
 import 'package:dice/model/history.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/dice_list.dart';
+import 'add_dice_screen.dart';
 
 class DiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    DiceList diceList = Provider.of<DiceList>(context);
-    History history = Provider.of<History>(context, listen: false);
+    final diceList = Provider.of<DiceList>(context);
+    final history = Provider.of<History>(context, listen: false);
 
     return Scaffold(
       body: ListView.builder(
         itemBuilder: (context, index) {
-          return Dismissible(
-            onDismissed: (_) {
-              diceList.remove(index);
-            },
-            direction: DismissDirection.endToStart,
-            background: Container(
-              alignment: Alignment.centerRight,
-              color: Colors.red,
-              child: const Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: Icon(Icons.delete_forever),
-              ),
-            ),
-            key: ValueKey(diceList.list[index]),
-            child: Card(
-              child: ListTile(
-                title: Text(
-                    '${diceList.list[index].name} : ${diceList.list[index]?.result} ${diceList.list[index]?.results}'),
-                onTap: () {
-                  diceList.roll(index);
-                  history.add(diceList.list[index]);
-                },
-              ),
+          final item = diceList.list[index];
+          return Card(
+            child: ListTile(
+              title: Text('${item?.name} : ${item?.result} ${item?.results}'),
+              onTap: () {
+                diceList.roll(index);
+                history.add(item);
+              },
             ),
           );
         },
         itemCount: diceList.list.length,
       ),
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
         onPressed: () {
-          diceList.add(Dice(faces: 6));
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => ChangeNotifierProvider.value(
+              value: diceList,
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: AddDiceScreen(),
+                ),
+              ),
+            ),
+          );
         },
       ),
     );

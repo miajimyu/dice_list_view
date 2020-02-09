@@ -11,7 +11,7 @@ class HistoryScreen extends StatelessWidget {
         return ListView.builder(
           itemCount: value.historys.length,
           itemBuilder: (context, index) {
-            var i = value.historys.length - index - 1;
+            final i = value.historys.length - index - 1;
             return ListItem(
               result: value.historys[i].result,
               name: value.historys[i].diceName,
@@ -42,7 +42,7 @@ class ListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(5),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

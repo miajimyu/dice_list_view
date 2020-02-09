@@ -9,7 +9,6 @@ class DiceList extends ChangeNotifier {
     Dice(faces: 4),
     Dice(faces: 6),
     Dice(number: 2, faces: 6, add: 6),
-    Dice(number: 100, faces: 6),
     Dice(faces: 10),
     Dice(faces: 20),
     Dice(faces: 100),

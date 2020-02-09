@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Dice App'),
+          title: const Text('Dice App'),
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(text: 'Dices'),

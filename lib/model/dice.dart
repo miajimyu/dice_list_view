@@ -13,12 +13,12 @@ class Dice {
   final int faces;
   final int add;
 
-  List<int> _results = [];
+  final List<int> _results = [];
 
   String get name {
     var str = '';
     if (add < 0) {
-      str = '-$add';
+      str = '$add';
     } else if (add > 0) {
       str = '+$add';
     }
