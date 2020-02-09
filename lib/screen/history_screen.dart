@@ -8,7 +8,10 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<History>(
       builder: (context, value, child) {
-        return ListView.builder(
+        return ListView.separated(
+          separatorBuilder: (context, index) => Divider(
+            color: Colors.grey,
+          ),
           itemCount: value.historys.length,
           itemBuilder: (context, index) {
             final i = value.historys.length - index - 1;
@@ -40,42 +43,40 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Container(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    result.toString(),
-                    style: Theme.of(context).textTheme.display1,
-                  ),
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Container(
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  result.toString(),
+                  style: Theme.of(context).textTheme.display1,
                 ),
               ),
             ),
-            Expanded(
-              flex: 4,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(name),
-                      Text(DateFormat.Hms().format(time)),
-                    ],
-                  ),
-                  Text(results.join(', ')),
-                ],
-              ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(name),
+                    Text(DateFormat.Hms().format(time)),
+                  ],
+                ),
+                Text(results.join(', ')),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -22,6 +22,30 @@ class DiceScreen extends StatelessWidget {
               onTap: () {
                 diceList.roll(index);
                 history.add(item);
+
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => SimpleDialog(
+                    title: SimpleDialogOption(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Center(
+                        child: Text(
+                          '${item.result}',
+                          style: TextStyle(
+                            fontSize:
+                                Theme.of(context).textTheme.display1.fontSize,
+                          ),
+                        ),
+                      ),
+                    ),
+                    children: <Widget>[
+                      Center(child: Text('${item.name}')),
+                      Center(child: Text('${item.results}')),
+                    ],
+                  ),
+                );
               },
             ),
           );

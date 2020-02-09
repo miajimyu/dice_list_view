@@ -77,7 +77,6 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
           },
         ),
         TextFormField(
-          autofocus: true,
           maxLength: 4,
           decoration: const InputDecoration(
             labelText: 'Faces of dices',
