@@ -26,6 +26,17 @@ class Dice {
     return '${number}d$faces$str';
   }
 
+  String get fullName {
+    var str = '±0';
+    if (add < 0) {
+      str = '$add';
+    } else if (add > 0) {
+      str = '+$add';
+    }
+
+    return '${number}d$faces$str';
+  }
+
   int get result {
     if (_results.isEmpty) {
       return 0;

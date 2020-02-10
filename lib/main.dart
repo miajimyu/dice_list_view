@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.dice),
-              title: Text('Dices'),
+              title: Text('Dice'),
             ),
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.history),

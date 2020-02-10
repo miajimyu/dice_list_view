@@ -41,7 +41,7 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Text(
-          'Add Dice ${dice.name}',
+          'Add Dice ${dice.fullName}',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 30,
@@ -50,8 +50,8 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
         ),
         TextFormField(
           maxLength: 3,
+          textAlign: TextAlign.center,
           decoration: const InputDecoration(
-            labelText: 'Number of dices',
             hintText: '$_number',
           ),
           onChanged: (value) {
@@ -78,8 +78,8 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
         ),
         TextFormField(
           maxLength: 4,
+          textAlign: TextAlign.center,
           decoration: const InputDecoration(
-            labelText: 'Faces of dices',
             hintText: '$_faces',
           ),
           onChanged: (value) {
@@ -105,11 +105,10 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
           },
         ),
         TextFormField(
+          textAlign: TextAlign.center,
           decoration: const InputDecoration(
-            labelText: 'Adjust value',
             hintText: '$_add',
           ),
-          textAlign: TextAlign.justify,
           onChanged: (value) {
             setState(() {
               dice = Dice(
