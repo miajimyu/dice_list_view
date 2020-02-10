@@ -15,37 +15,59 @@ class DiceScreen extends StatelessWidget {
       body: ListView.builder(
         itemBuilder: (context, index) {
           final item = diceList.list[index];
-          return Card(
-            child: ListTile(
-              title: Text('${item?.name} : ${item?.result} ${item?.results}'),
-              onTap: () {
-                diceList.roll(index);
-                history.add(item);
+          return Dismissible(
+            key: ValueKey(item),
+            onDismissed: (_) {
+              diceList.remove(index);
+            },
+            background: Container(
+              alignment: Alignment.centerLeft,
+              color: Colors.red,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Icon(Icons.delete_forever),
+              ),
+            ),
+            secondaryBackground: Container(
+              alignment: Alignment.centerRight,
+              color: Colors.red,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Icon(Icons.delete_forever),
+              ),
+            ),
+            child: Card(
+              child: ListTile(
+                title: Text('${item?.name} : ${item?.result} ${item?.results}'),
+                onTap: () {
+                  diceList.roll(index);
+                  history.add(item);
 
-                showDialog<void>(
-                  context: context,
-                  builder: (_) => SimpleDialog(
-                    title: SimpleDialogOption(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Center(
-                        child: Text(
-                          '${item.result}',
-                          style: TextStyle(
-                            fontSize:
-                                Theme.of(context).textTheme.display1.fontSize,
+                  showDialog<void>(
+                    context: context,
+                    builder: (_) => SimpleDialog(
+                      title: SimpleDialogOption(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Center(
+                          child: Text(
+                            '${item.result}',
+                            style: TextStyle(
+                              fontSize:
+                                  Theme.of(context).textTheme.display1.fontSize,
+                            ),
                           ),
                         ),
                       ),
+                      children: <Widget>[
+                        Center(child: Text('${item.name}')),
+                        Center(child: Text('${item.results}')),
+                      ],
                     ),
-                    children: <Widget>[
-                      Center(child: Text('${item.name}')),
-                      Center(child: Text('${item.results}')),
-                    ],
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           );
         },
