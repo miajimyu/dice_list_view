@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/dice_list.dart';
-import 'add_dice_screen.dart';
 
 class DiceScreen extends StatelessWidget {
   @override
@@ -51,25 +50,6 @@ class DiceScreen extends StatelessWidget {
           );
         },
         itemCount: diceList.list.length,
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (context) => ChangeNotifierProvider.value(
-              value: diceList,
-              child: SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: AddDiceScreen(),
-                ),
-              ),
-            ),
-          );
-        },
       ),
     );
   }
