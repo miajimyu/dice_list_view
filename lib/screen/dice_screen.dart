@@ -101,7 +101,7 @@ class DiceItem extends StatelessWidget {
               ),
             );
           },
-          trailing: Icon(Icons.menu),
+          trailing: Icon(Icons.reorder),
         ),
       ),
     );
