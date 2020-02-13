@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: MultiProvider(
         providers: [
-          Provider<History>(create: (_) => History()),
+          ChangeNotifierProvider<History>(create: (_) => History()),
           ChangeNotifierProvider<DiceList>(create: (_) => DiceList()),
         ],
         child: HomePage(),
@@ -43,54 +43,48 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final diceList = Provider.of<DiceList>(context);
 
+    List<Widget> _buildActions() {
+      final history = Provider.of<History>(context);
+      if (history.historys.isEmpty) {
+        return null;
+      }
+
+      return <Widget>[
+        IconButton(
+          icon: const Icon(Icons.delete_forever),
+          onPressed: () {
+            showDialog<void>(
+              context: context,
+              builder: (_) => AlertDialog(
+                content: const Text('Clear history?'),
+                actions: <Widget>[
+                  FlatButton(
+                    child: const Text('CANCEL'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  FlatButton(
+                    child: const Text('CLEAR'),
+                    onPressed: () {
+                      history.clear();
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        )
+      ];
+    }
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Dice App'),
+          actions: _selectedIndex == 0 ? null : _buildActions(),
         ),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              DrawerHeader(
-                child: const Text(
-                  'Menu',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-              ),
-              Tooltip(
-                message: 'Settings',
-                child: ListTile(
-                  leading: Icon(Icons.settings),
-                  title: const Text('Settings'),
-                  onTap: () {
-                    // TODO
-                  },
-                ),
-              ),
-              Tooltip(
-                message: 'Licenses',
-                child: ListTile(
-                    leading: const Icon(Icons.info),
-                    title: const Text('Licenses'),
-                    onTap: () async {
-                      final packageInfo = await PackageInfo.fromPlatform();
-                      final version = packageInfo.version;
-                      showLicensePage(
-                        context: context,
-                        applicationVersion: version,
-                      );
-                    }),
-              ),
-            ],
-          ),
-        ),
+        drawer: const HomePageDrawer(),
         body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
@@ -114,6 +108,58 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton:
             _selectedIndex == 0 ? HomePageFAB(diceList: diceList) : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      ),
+    );
+  }
+}
+
+class HomePageDrawer extends StatelessWidget {
+  const HomePageDrawer({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: <Widget>[
+          DrawerHeader(
+            child: const Text(
+              'Menu',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+          ),
+          Tooltip(
+            message: 'Settings',
+            child: ListTile(
+              leading: Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                // TODO
+              },
+            ),
+          ),
+          Tooltip(
+            message: 'Licenses',
+            child: ListTile(
+                leading: const Icon(Icons.info),
+                title: const Text('Licenses'),
+                onTap: () async {
+                  final packageInfo = await PackageInfo.fromPlatform();
+                  final version = packageInfo.version;
+                  showLicensePage(
+                    context: context,
+                    applicationVersion: version,
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }
