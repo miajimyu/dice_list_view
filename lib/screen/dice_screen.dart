@@ -19,19 +19,11 @@ class _DiceScreenState extends State<DiceScreen> {
     final diceList = Provider.of<DiceList>(context);
     final history = Provider.of<History>(context, listen: false);
 
-    void _updateMyItems(int oldIndex, int newIndex) {
-      final _index = oldIndex < newIndex ? newIndex - 1 : newIndex;
-      final _item = diceList.list[oldIndex];
-      diceList.list
-        ..remove(_item)
-        ..insert(_index, _item);
-    }
-
     return Scaffold(
       body: ReorderableListView(
         onReorder: (oldIndex, newIndex) {
           setState(() {
-            _updateMyItems(oldIndex, newIndex);
+            diceList.update(oldIndex, newIndex);
           });
         },
         children: enumerate(diceList.list).map(
@@ -90,7 +82,7 @@ class DiceItem extends StatelessWidget {
                   child: Text(
                     '${item.result}',
                     style: TextStyle(
-                      fontSize: Theme.of(context).textTheme.display1.fontSize,
+                      fontSize: Theme.of(context).textTheme.headline4.fontSize,
                     ),
                   ),
                 ),

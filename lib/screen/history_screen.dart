@@ -11,23 +11,25 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<History>(
       builder: (context, value, child) {
-        return value.historys.isEmpty
-            ? Center(child: DiceIcon())
-            : ListView.separated(
-                separatorBuilder: (context, index) => Divider(
-                  color: Colors.grey,
-                ),
-                itemCount: value.historys.length,
-                itemBuilder: (context, index) {
-                  final i = value.historys.length - index - 1;
-                  return ListItem(
-                    result: value.historys[i].result,
-                    name: value.historys[i].diceName,
-                    results: value.historys[i].results,
-                    time: value.historys[i].dateTime,
-                  );
-                },
+        if (value.historys.isEmpty) {
+          return Center(child: DiceIcon());
+        } else {
+          return ListView.separated(
+            separatorBuilder: (context, index) => Divider(
+              color: Colors.grey,
+            ),
+            itemCount: value.historys.length,
+            itemBuilder: (context, index) {
+              final i = value.historys.length - index - 1;
+              return ListItem(
+                result: value.historys[i].result,
+                name: value.historys[i].diceName,
+                results: value.historys[i].results,
+                time: value.historys[i].dateTime,
               );
+            },
+          );
+        }
       },
     );
   }
@@ -67,7 +69,7 @@ class DiceIcon extends StatelessWidget {
       children: <Widget>[
         _buildIcon(),
         const SizedBox(height: 20),
-        Text('Empty', style: Theme.of(context).textTheme.display1),
+        Text('Empty', style: Theme.of(context).textTheme.headline4),
       ],
     );
   }
@@ -100,7 +102,7 @@ class ListItem extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   result.toString(),
-                  style: Theme.of(context).textTheme.display1,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ),
             ),
