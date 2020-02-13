@@ -55,10 +55,12 @@ class DiceList extends ChangeNotifier {
 
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
-    final length = prefs.getInt('diceListLength') ?? 0;
+    final length = prefs.getInt('diceListLength');
 
-    if (length == 0) {
+    if (length == null) {
       list = defaultlist;
+      notifyListeners();
+      return;
     }
 
     for (var i = 0; i < length; i++) {
@@ -72,13 +74,13 @@ class DiceList extends ChangeNotifier {
       );
     }
     notifyListeners();
+    return;
   }
 
   Future<void> _save() async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setInt('diceListLength', list.length);
-    print('${list.length}');
 
     for (var i = 0; i < list.length; i++) {
       await prefs.setStringList('diceList$i', [
