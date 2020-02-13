@@ -2,6 +2,7 @@ import 'package:dice/screen/dice_screen.dart';
 import 'package:dice/screen/history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
 import 'model/dice_list.dart';
@@ -47,6 +48,48 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Dice App'),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                child: const Text(
+                  'Menu',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
+              Tooltip(
+                message: 'Settings',
+                child: ListTile(
+                  leading: Icon(Icons.settings),
+                  title: const Text('Settings'),
+                  onTap: () {
+                    // TODO
+                  },
+                ),
+              ),
+              Tooltip(
+                message: 'Licenses',
+                child: ListTile(
+                    leading: const Icon(Icons.info),
+                    title: const Text('Licenses'),
+                    onTap: () async {
+                      final packageInfo = await PackageInfo.fromPlatform();
+                      final version = packageInfo.version;
+                      showLicensePage(
+                        context: context,
+                        applicationVersion: version,
+                      );
+                    }),
+              ),
+            ],
+          ),
         ),
         body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
