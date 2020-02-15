@@ -51,18 +51,21 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
         _buildNumberForm(),
         _buildFacesForm(),
         _buildAddForm(),
-        FlatButton(
-          child: const Text(
-            'Add',
-            style: TextStyle(color: Colors.white),
+        Tooltip(
+          message: 'Add',
+          child: FlatButton(
+            child: const Text(
+              'Add',
+              style: TextStyle(color: Colors.white),
+            ),
+            color: Colors.blue,
+            onPressed: () {
+              if (_key.currentState.validate()) {
+                diceList.add(dice);
+                Navigator.pop(context);
+              }
+            },
           ),
-          color: Colors.blue,
-          onPressed: () {
-            if (_key.currentState.validate()) {
-              diceList.add(dice);
-              Navigator.pop(context);
-            }
-          },
         ),
       ],
     );

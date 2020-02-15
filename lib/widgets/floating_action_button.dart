@@ -32,6 +32,7 @@ class HomePageFAB extends StatelessWidget {
           ),
         );
       },
+      tooltip: 'Add dice',
     );
   }
 }

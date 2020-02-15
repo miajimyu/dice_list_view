@@ -89,6 +89,7 @@ class _HomePageState extends State<HomePage> {
     }
     return <Widget>[
       IconButton(
+        tooltip: 'Clear history',
         icon: const Icon(Icons.delete_forever),
         onPressed: () {
           showDialog<void>(
