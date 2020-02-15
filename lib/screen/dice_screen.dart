@@ -56,12 +56,24 @@ class DiceItem extends StatelessWidget {
   final DiceList diceList;
   final History history;
 
+  void _showSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Remove dice ${item.name}'),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: diceList.undoRemove,
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       key: ValueKey(item),
       onDismissed: (_) {
         diceList.remove(index);
+        _showSnackBar(context);
       },
       background: DismissibleBackground(
         alignment: Alignment.centerLeft,
@@ -69,32 +81,57 @@ class DiceItem extends StatelessWidget {
       secondaryBackground: DismissibleBackground(
         alignment: Alignment.centerRight,
       ),
-      child: Card(
-        child: ListTile(
-          title: Text('${item?.name} : ${item?.result} ${item?.results}'),
-          onTap: () {
-            diceList.roll(index);
-            history.add(item);
-            showDialog<void>(
-              context: context,
-              builder: (_) => SimpleDialog(
-                title: Center(
-                  child: Text(
-                    '${item.result}',
-                    style: TextStyle(
-                      fontSize: Theme.of(context).textTheme.headline4.fontSize,
-                    ),
+      child: DiceCard(
+        item: item,
+        diceList: diceList,
+        index: index,
+        history: history,
+      ),
+    );
+  }
+}
+
+class DiceCard extends StatelessWidget {
+  const DiceCard({
+    Key key,
+    @required this.item,
+    @required this.diceList,
+    @required this.index,
+    @required this.history,
+  }) : super(key: key);
+
+  final Dice item;
+  final DiceList diceList;
+  final int index;
+  final History history;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text('${item?.name} : ${item?.result} ${item?.results}'),
+        onTap: () {
+          diceList.roll(index);
+          history.add(item);
+          showDialog<void>(
+            context: context,
+            builder: (_) => SimpleDialog(
+              title: Center(
+                child: Text(
+                  '${item.result}',
+                  style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.headline4.fontSize,
                   ),
                 ),
-                children: <Widget>[
-                  Center(child: Text('${item.name}')),
-                  Center(child: Text('${item.results}')),
-                ],
               ),
-            );
-          },
-          trailing: Icon(Icons.reorder),
-        ),
+              children: <Widget>[
+                Center(child: Text('${item.name}')),
+                Center(child: Text('${item.results}')),
+              ],
+            ),
+          );
+        },
+        trailing: Icon(Icons.reorder),
       ),
     );
   }

@@ -14,6 +14,9 @@ List<Dice> defaultlist = [
   Dice(faces: 100),
 ];
 
+Dice _currentRemovedDice;
+int _currentRemovedDiceIndex;
+
 class DiceList extends ChangeNotifier {
   DiceList() {
     _load();
@@ -36,10 +39,42 @@ class DiceList extends ChangeNotifier {
   }
 
   void remove(int index) {
+    // for undo
+    _pushRemovedDice(index: index, dice: list[index]);
+
     list?.removeAt(index);
 
     _save();
     notifyListeners();
+  }
+
+  void undoRemove() {
+    _popRemovedDice();
+  }
+
+  void _pushRemovedDice({int index, Dice dice}) {
+    _currentRemovedDiceIndex = index;
+    _currentRemovedDice = dice;
+  }
+
+  void _popRemovedDice() {
+    final isNothingToPop =
+        _currentRemovedDice == null || _currentRemovedDice == null;
+    if (isNothingToPop) {
+      _cleanRemovedDice();
+      return;
+    }
+
+    list.insert(_currentRemovedDiceIndex, _currentRemovedDice);
+
+    _cleanRemovedDice();
+    _save();
+    notifyListeners();
+  }
+
+  void _cleanRemovedDice() {
+    _currentRemovedDiceIndex = null;
+    _currentRemovedDice = null;
   }
 
   void update(int oldIndex, int newIndex) {

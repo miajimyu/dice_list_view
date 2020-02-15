@@ -23,7 +23,11 @@ class Dice {
       str = '+$add';
     }
 
-    return '${number}d$faces$str';
+    return _buildDiceName(
+      numberStr: number.toString(),
+      facesStr: faces.toString(),
+      addStr: str,
+    );
   }
 
   String get fullName {
@@ -34,7 +38,15 @@ class Dice {
       str = '+$add';
     }
 
-    return '${number}d$faces$str';
+    return _buildDiceName(
+      numberStr: number.toString(),
+      facesStr: faces.toString(),
+      addStr: str,
+    );
+  }
+
+  String _buildDiceName({String numberStr, String facesStr, String addStr}) {
+    return '${numberStr}D$facesStr$addStr';
   }
 
   int get result {
