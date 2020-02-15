@@ -52,14 +52,13 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
         _buildFacesForm(),
         _buildAddForm(),
         FlatButton(
-          child: Text(
+          child: const Text(
             'Add',
             style: TextStyle(color: Colors.white),
           ),
           color: Colors.blue,
           onPressed: () {
             if (_key.currentState.validate()) {
-              // No any error in validation
               diceList.add(dice);
               Navigator.pop(context);
             }
@@ -73,8 +72,8 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
     return TextFormField(
       maxLength: 3,
       textAlign: TextAlign.center,
-      decoration: const InputDecoration(
-        hintText: '$_number',
+      decoration: InputDecoration(
+        hintText: '${dice.number}',
       ),
       onChanged: (value) {
         setState(() {
@@ -106,8 +105,8 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
     return TextFormField(
       maxLength: 4,
       textAlign: TextAlign.center,
-      decoration: const InputDecoration(
-        hintText: '$_faces',
+      decoration: InputDecoration(
+        hintText: '${dice.faces}',
       ),
       onChanged: (value) {
         setState(() {
@@ -138,8 +137,8 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
   TextFormField _buildAddForm() {
     return TextFormField(
       textAlign: TextAlign.center,
-      decoration: const InputDecoration(
-        hintText: '$_add',
+      decoration: InputDecoration(
+        hintText: '${dice.add}',
       ),
       onChanged: (value) {
         setState(() {
