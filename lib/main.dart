@@ -2,12 +2,13 @@ import 'package:dice/screen/dice_screen.dart';
 import 'package:dice/screen/history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
 import 'model/dice_list.dart';
 import 'model/history.dart';
-import 'screen/add_dice_screen.dart';
+
+import 'widgets/drawer.dart';
+import 'widgets/floating_action_button.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,46 +37,11 @@ class _HomePageState extends State<HomePage> {
     DiceScreen(),
     HistoryScreen(),
   ];
-
   int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final diceList = Provider.of<DiceList>(context);
-
-    List<Widget> _buildActions() {
-      final history = Provider.of<History>(context);
-      if (history.historys.isEmpty) {
-        return null;
-      }
-
-      return <Widget>[
-        IconButton(
-          icon: const Icon(Icons.delete_forever),
-          onPressed: () {
-            showDialog<void>(
-              context: context,
-              builder: (_) => AlertDialog(
-                content: const Text('Clear history?'),
-                actions: <Widget>[
-                  FlatButton(
-                    child: const Text('CANCEL'),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  FlatButton(
-                    child: const Text('CLEAR'),
-                    onPressed: () {
-                      history.clear();
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
-        )
-      ];
-    }
 
     return DefaultTabController(
       length: 2,
@@ -111,88 +77,37 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
 
-class HomePageDrawer extends StatelessWidget {
-  const HomePageDrawer({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: <Widget>[
-          DrawerHeader(
-            child: const Text(
-              'Menu',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
+  List<Widget> _buildActions() {
+    final history = Provider.of<History>(context);
+    if (history.historys.isEmpty) {
+      return null;
+    }
+    return <Widget>[
+      IconButton(
+        icon: const Icon(Icons.delete_forever),
+        onPressed: () {
+          showDialog<void>(
+            context: context,
+            builder: (_) => AlertDialog(
+              content: const Text('Clear history?'),
+              actions: <Widget>[
+                FlatButton(
+                  child: const Text('CANCEL'),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                FlatButton(
+                  child: const Text('CLEAR'),
+                  onPressed: () {
+                    history.clear();
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
             ),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-          ),
-          Tooltip(
-            message: 'Settings',
-            child: ListTile(
-              leading: Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                // TODO
-              },
-            ),
-          ),
-          Tooltip(
-            message: 'Licenses',
-            child: ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('Licenses'),
-                onTap: () async {
-                  final packageInfo = await PackageInfo.fromPlatform();
-                  final version = packageInfo.version;
-                  showLicensePage(
-                    context: context,
-                    applicationVersion: version,
-                  );
-                }),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HomePageFAB extends StatelessWidget {
-  const HomePageFAB({
-    Key key,
-    @required this.diceList,
-  }) : super(key: key);
-
-  final DiceList diceList;
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      child: Icon(Icons.add),
-      onPressed: () {
-        showModalBottomSheet<dynamic>(
-          context: context,
-          isScrollControlled: true,
-          builder: (context) => ChangeNotifierProvider.value(
-            value: diceList,
-            child: SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: AddDiceScreen(),
-              ),
-            ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      )
+    ];
   }
 }
