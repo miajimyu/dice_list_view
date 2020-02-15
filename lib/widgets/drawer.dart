@@ -28,16 +28,6 @@ class HomePageDrawer extends StatelessWidget {
             ),
           ),
           Tooltip(
-            message: 'Settings',
-            child: ListTile(
-              leading: Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                // TODO
-              },
-            ),
-          ),
-          Tooltip(
             message: 'Licenses',
             child: ListTile(
               leading: const Icon(Icons.info),
@@ -68,12 +58,16 @@ class ShowDialogListTile extends StatefulWidget {
 class _ShowDialogListTileState extends State<ShowDialogListTile> {
   @override
   Widget build(BuildContext context) {
+    const title = 'Show result dialog';
     final settings = Provider.of<ResultDialog>(context);
 
-    return SwitchListTile(
-      title: const Text('Show result dialog'),
-      value: settings.isShowResultDialog,
-      onChanged: (_) => settings.toggleShowResultDialog(),
+    return Tooltip(
+      message: title,
+      child: SwitchListTile(
+        title: const Text(title),
+        value: settings.isShowResultDialog,
+        onChanged: (_) => settings.toggleShowResultDialog(),
+      ),
     );
   }
 }
@@ -87,12 +81,16 @@ class ShowDetailResultListTile extends StatefulWidget {
 class _ShowDetailResultListTileState extends State<ShowDetailResultListTile> {
   @override
   Widget build(BuildContext context) {
+    const title = 'Detailed results';
     final settings = Provider.of<DetailResult>(context);
 
-    return SwitchListTile(
-      title: const Text('Show result detail'),
-      value: settings.isShowDetailResult,
-      onChanged: (_) => settings.toggleShowDetailResult(),
+    return Tooltip(
+      message: title,
+      child: SwitchListTile(
+        title: const Text(title),
+        value: settings.isShowDetailResult,
+        onChanged: (_) => settings.toggleShowDetailResult(),
+      ),
     );
   }
 }
