@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'model/dice_list.dart';
 import 'model/history.dart';
 
+import 'model/settings.dart';
 import 'widgets/drawer.dart';
 import 'widgets/floating_action_button.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<History>(create: (_) => History()),
           ChangeNotifierProvider<DiceList>(create: (_) => DiceList()),
+          ChangeNotifierProvider<Settings>(create: (_) => Settings()),
         ],
         child: HomePage(),
       ),
