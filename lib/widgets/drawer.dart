@@ -1,8 +1,9 @@
+import 'package:dice/model/detail_result.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
-import '../model/settings.dart';
+import '../model/result_dialog.dart';
 
 class HomePageDrawer extends StatelessWidget {
   const HomePageDrawer({
@@ -52,6 +53,7 @@ class HomePageDrawer extends StatelessWidget {
             ),
           ),
           ShowDialogListTile(),
+          ShowDetailResultListTile(),
         ],
       ),
     );
@@ -66,12 +68,31 @@ class ShowDialogListTile extends StatefulWidget {
 class _ShowDialogListTileState extends State<ShowDialogListTile> {
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<Settings>(context);
+    final settings = Provider.of<ResultDialog>(context);
 
     return SwitchListTile(
       title: const Text('Show result dialog'),
       value: settings.isShowResultDialog,
       onChanged: (_) => settings.toggleShowResultDialog(),
+    );
+  }
+}
+
+class ShowDetailResultListTile extends StatefulWidget {
+  @override
+  _ShowDetailResultListTileState createState() =>
+      _ShowDetailResultListTileState();
+}
+
+class _ShowDetailResultListTileState extends State<ShowDetailResultListTile> {
+  @override
+  Widget build(BuildContext context) {
+    final settings = Provider.of<DetailResult>(context);
+
+    return SwitchListTile(
+      title: const Text('Show result detail'),
+      value: settings.isShowDetailResult,
+      onChanged: (_) => settings.toggleShowDetailResult(),
     );
   }
 }

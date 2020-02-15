@@ -1,10 +1,12 @@
 import 'dart:math';
 
-import 'package:dice/model/history.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import '../model/detail_result.dart';
+import '../model/history.dart';
 
 class HistoryScreen extends StatelessWidget {
   @override
@@ -119,7 +121,9 @@ class ListItem extends StatelessWidget {
                     Text(DateFormat.Hms().format(time)),
                   ],
                 ),
-                Text(results.join(', ')),
+                Provider.of<DetailResult>(context).isShowDetailResult
+                    ? Text(results.join(', '))
+                    : Container(),
               ],
             ),
           ),

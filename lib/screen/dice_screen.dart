@@ -1,4 +1,5 @@
-import 'package:dice/model/settings.dart';
+import 'package:dice/model/detail_result.dart';
+import 'package:dice/model/result_dialog.dart';
 import 'package:quiver/iterables.dart';
 
 import 'package:dice/model/dice.dart';
@@ -109,11 +110,22 @@ class DiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<Settings>(context);
+    final settings = Provider.of<ResultDialog>(context);
+    final detailResult = Provider.of<DetailResult>(context);
+
+    Text _buildTitle() {
+      final baseTitle = '${item?.name} : ${item?.result}';
+
+      if (detailResult.isShowDetailResult) {
+        return Text('$baseTitle ${item?.results}');
+      }
+
+      return Text(baseTitle);
+    }
 
     return Card(
       child: ListTile(
-        title: Text('${item?.name} : ${item?.result} ${item?.results}'),
+        title: _buildTitle(),
         onTap: () {
           diceList.roll(index);
           history.add(item);

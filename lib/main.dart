@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'model/detail_result.dart';
 import 'model/dice_list.dart';
 import 'model/history.dart';
 
-import 'model/settings.dart';
+import 'model/result_dialog.dart';
 import 'widgets/drawer.dart';
 import 'widgets/floating_action_button.dart';
 
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<History>(create: (_) => History()),
           ChangeNotifierProvider<DiceList>(create: (_) => DiceList()),
-          ChangeNotifierProvider<Settings>(create: (_) => Settings()),
+          ChangeNotifierProvider<ResultDialog>(create: (_) => ResultDialog()),
+          ChangeNotifierProvider<DetailResult>(create: (_) => DetailResult()),
         ],
         child: HomePage(),
       ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Settings extends ChangeNotifier {
-  Settings() {
+class ResultDialog extends ChangeNotifier {
+  ResultDialog() {
     _load();
   }
 
-  bool _isShowResultDialog = true;
+  static const defalShowDetailResult = true;
+  bool _isShowResultDialog = defalShowDetailResult;
 
   bool get isShowResultDialog => _isShowResultDialog;
 
@@ -20,6 +21,8 @@ class Settings extends ChangeNotifier {
 
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
-    _isShowResultDialog = prefs.getBool('_isShowResultDialog') ?? true;
+    _isShowResultDialog =
+        prefs.getBool('_isShowResultDialog') ?? defalShowDetailResult;
+    notifyListeners();
   }
 }
