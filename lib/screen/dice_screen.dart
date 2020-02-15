@@ -78,10 +78,10 @@ class DiceItem extends StatelessWidget {
         diceList.remove(index);
         _showSnackBar(context);
       },
-      background: DismissibleBackground(
+      background: const DismissibleBackground(
         alignment: Alignment.centerLeft,
       ),
-      secondaryBackground: DismissibleBackground(
+      secondaryBackground: const DismissibleBackground(
         alignment: Alignment.centerRight,
       ),
       child: DiceCard(
