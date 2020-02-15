@@ -28,13 +28,13 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
         child: Form(
           key: _key,
           autovalidate: true,
-          child: _buildForms(context),
+          child: _buildForms(),
         ),
       ),
     );
   }
 
-  Widget _buildForms(BuildContext context) {
+  Widget _buildForms() {
     final diceList = Provider.of<DiceList>(context, listen: false);
 
     return Column(
@@ -48,89 +48,9 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
             color: Colors.blue,
           ),
         ),
-        TextFormField(
-          maxLength: 3,
-          textAlign: TextAlign.center,
-          decoration: const InputDecoration(
-            hintText: '$_number',
-          ),
-          onChanged: (value) {
-            setState(() {
-              dice = Dice(
-                number: int.parse(value),
-                faces: dice.faces,
-                add: dice.add,
-              );
-            });
-          },
-          keyboardType: TextInputType.number,
-          validator: (newValue) {
-            if (newValue.isEmpty) {
-              return null;
-            }
-
-            if (int.parse(newValue) < 1 || int.parse(newValue) > 100) {
-              return '1 <= number <= 100';
-            }
-
-            return null;
-          },
-        ),
-        TextFormField(
-          maxLength: 4,
-          textAlign: TextAlign.center,
-          decoration: const InputDecoration(
-            hintText: '$_faces',
-          ),
-          onChanged: (value) {
-            setState(() {
-              dice = Dice(
-                number: dice.number,
-                faces: int.parse(value),
-                add: dice.add,
-              );
-            });
-          },
-          keyboardType: TextInputType.number,
-          validator: (newValue) {
-            if (newValue.isEmpty) {
-              return null;
-            }
-
-            if (int.parse(newValue) < 1 || int.parse(newValue) > 9999) {
-              return '1 <= feces <= 9999';
-            }
-
-            return null;
-          },
-        ),
-        TextFormField(
-          textAlign: TextAlign.center,
-          decoration: const InputDecoration(
-            hintText: '$_add',
-          ),
-          onChanged: (value) {
-            setState(() {
-              dice = Dice(
-                number: dice.number,
-                faces: dice.faces,
-                add: int.parse(value),
-              );
-            });
-          },
-          keyboardType: TextInputType.number,
-          validator: (newValue) {
-            if (newValue.isEmpty) {
-              return null;
-            }
-
-            if (int.parse(newValue) < -9999 || int.parse(newValue) > 9999) {
-              return '-9999 <= value <= 9999';
-            }
-
-            return null;
-          },
-        ),
+        _buildNumberForm(),
+        _buildFacesForm(),
+        _buildAddForm(),
         FlatButton(
           child: Text(
             'Add',
@@ -146,6 +66,104 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
           },
         ),
       ],
+    );
+  }
+
+  TextFormField _buildNumberForm() {
+    return TextFormField(
+      maxLength: 3,
+      textAlign: TextAlign.center,
+      decoration: const InputDecoration(
+        hintText: '$_number',
+      ),
+      onChanged: (value) {
+        setState(() {
+          dice = Dice(
+            number: int.parse(value),
+            faces: dice.faces,
+            add: dice.add,
+          );
+        });
+      },
+      keyboardType: TextInputType.number,
+      validator: (newValue) {
+        if (newValue.isEmpty) {
+          return null;
+        }
+
+        const min = 1;
+        const max = 999;
+        if (int.parse(newValue) < min || int.parse(newValue) > max) {
+          return '$min <= value <= $max';
+        }
+
+        return null;
+      },
+    );
+  }
+
+  TextFormField _buildFacesForm() {
+    return TextFormField(
+      maxLength: 4,
+      textAlign: TextAlign.center,
+      decoration: const InputDecoration(
+        hintText: '$_faces',
+      ),
+      onChanged: (value) {
+        setState(() {
+          dice = Dice(
+            number: dice.number,
+            faces: int.parse(value),
+            add: dice.add,
+          );
+        });
+      },
+      keyboardType: TextInputType.number,
+      validator: (newValue) {
+        if (newValue.isEmpty) {
+          return null;
+        }
+
+        const min = 1;
+        const max = 9999;
+        if (int.parse(newValue) < min || int.parse(newValue) > max) {
+          return '$min <= value <= $max';
+        }
+
+        return null;
+      },
+    );
+  }
+
+  TextFormField _buildAddForm() {
+    return TextFormField(
+      textAlign: TextAlign.center,
+      decoration: const InputDecoration(
+        hintText: '$_add',
+      ),
+      onChanged: (value) {
+        setState(() {
+          dice = Dice(
+            number: dice.number,
+            faces: dice.faces,
+            add: int.parse(value),
+          );
+        });
+      },
+      keyboardType: TextInputType.number,
+      validator: (newValue) {
+        if (newValue.isEmpty) {
+          return null;
+        }
+
+        const min = -9999;
+        const max = 9999;
+        if (int.parse(newValue) < -9999 || int.parse(newValue) > 9999) {
+          return '$min <= value <= $max';
+        }
+
+        return null;
+      },
     );
   }
 }
