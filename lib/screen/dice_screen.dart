@@ -60,7 +60,7 @@ class DiceItem extends StatelessWidget {
   void _showSnackBar(BuildContext context) {
     final snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
-      content: Text('Remove dice ${item.name}'),
+      content: Text('Removed dice ${item.name}'),
       action: SnackBarAction(
         label: 'Undo',
         onPressed: diceList.undoRemove,
