@@ -138,7 +138,7 @@ class DiceCard extends StatelessWidget {
                   child: Text(
                     '${item.result}',
                     style: TextStyle(
-                      fontSize: Theme.of(context).textTheme.headline4.fontSize,
+                      fontSize: Theme.of(context).textTheme.headline3.fontSize,
                     ),
                   ),
                 ),
