@@ -98,7 +98,7 @@ class ListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Container(
               child: Align(
                 alignment: Alignment.center,
@@ -110,7 +110,7 @@ class ListItem extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
