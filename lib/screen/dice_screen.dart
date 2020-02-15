@@ -144,7 +144,9 @@ class DiceCard extends StatelessWidget {
                 ),
                 children: <Widget>[
                   Center(child: Text('${item.name}')),
-                  Center(child: Text('${item.results}')),
+                  detailResult.isShowDetailResult
+                      ? Center(child: Text('${item.results}'))
+                      : Container(),
                 ],
               ),
             );
