@@ -1,11 +1,11 @@
+import 'package:dice/helper/shared_preferences_helpter.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dice.dart';
 
 class DiceList extends ChangeNotifier {
   DiceList() {
-    _load();
+    _loadLocalStrage();
   }
   List<Dice> list = [];
   Dice _currentRemovedDice;
@@ -22,23 +22,23 @@ class DiceList extends ChangeNotifier {
     Dice(faces: 100),
   ];
 
-  void restoreDefaultDice() {
+  Future<void> restoreDefault() async {
     list = List.from(_defaultlist);
-    _save();
+    await _saveLocalStrage();
     notifyListeners();
   }
 
   void roll(int index) {
     list[index]?.roll();
 
-    _save();
+    _saveLocalStrage();
     notifyListeners();
   }
 
   void add(Dice dice) {
     list?.add(dice);
 
-    _save();
+    _saveLocalStrage();
     notifyListeners();
   }
 
@@ -48,7 +48,7 @@ class DiceList extends ChangeNotifier {
 
     list?.removeAt(index);
 
-    _save();
+    _saveLocalStrage();
     notifyListeners();
   }
 
@@ -72,7 +72,7 @@ class DiceList extends ChangeNotifier {
     list.insert(_currentRemovedDiceIndex, _currentRemovedDice);
 
     _cleanRemovedDice();
-    _save();
+    _saveLocalStrage();
     notifyListeners();
   }
 
@@ -88,44 +88,24 @@ class DiceList extends ChangeNotifier {
       ..remove(_item)
       ..insert(_index, _item);
 
-    _save();
+    _saveLocalStrage();
     notifyListeners();
   }
 
-  Future<void> _load() async {
-    final prefs = await SharedPreferences.getInstance();
-    final length = prefs.getInt('diceListLength');
-
+  Future<void> _loadLocalStrage() async {
+    final length = await SharedPreferencesHelper.loadDiceListLength();
     if (length == null) {
-      restoreDefaultDice();
+      await restoreDefault();
       return;
     }
 
-    for (var i = 0; i < length; i++) {
-      final strList = prefs.getStringList('diceList$i');
-      list.add(
-        Dice(
-          number: int.parse(strList[0]),
-          faces: int.parse(strList[1]),
-          add: int.parse(strList[2]),
-        ),
-      );
-    }
-    await _save();
+    list = await SharedPreferencesHelper.loadDiceList(length);
+
+    await _saveLocalStrage();
     notifyListeners();
   }
 
-  Future<void> _save() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.setInt('diceListLength', list.length);
-
-    for (var i = 0; i < list.length; i++) {
-      await prefs.setStringList('diceList$i', [
-        list[i].number.toString(),
-        list[i].faces.toString(),
-        list[i].add.toString(),
-      ]);
-    }
+  Future<void> _saveLocalStrage() async {
+    await SharedPreferencesHelper.saveDiceListLength(list);
   }
 }

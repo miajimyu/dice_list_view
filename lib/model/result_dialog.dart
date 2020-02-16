@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import '../helper/shared_preferences_helpter.dart';
 
 class ResultDialog extends ChangeNotifier {
   ResultDialog() {
-    _load();
+    _loadLocalStrage();
+    notifyListeners();
   }
 
-  static const defalShowDetailResult = true;
-  bool _isShowResultDialog = defalShowDetailResult;
+  bool _isShowResultDialog = SharedPreferencesHelper.defaultIsShowDetailResult;
 
   bool get isShowResultDialog => _isShowResultDialog;
 
-  Future<void> toggleShowResultDialog() async {
-    _isShowResultDialog = !_isShowResultDialog;
-
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('_isShowResultDialog', _isShowResultDialog);
+  Future<void> save() async {
+    await _saveLocalStrage();
     notifyListeners();
   }
 
-  Future<void> _load() async {
-    final prefs = await SharedPreferences.getInstance();
-    _isShowResultDialog =
-        prefs.getBool('_isShowResultDialog') ?? defalShowDetailResult;
+  Future<void> toggleShowResultDialog() async {
+    _isShowResultDialog = !_isShowResultDialog;
+    await _saveLocalStrage();
     notifyListeners();
+  }
+
+  Future<void> _saveLocalStrage() async {
+    await SharedPreferencesHelper.saveIsShowResultDialog(
+      isShowResultDialog: _isShowResultDialog,
+    );
+  }
+
+  Future<void> _loadLocalStrage() async {
+    _isShowResultDialog =
+        await SharedPreferencesHelper.loadIsShowResultDialog();
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'helper/shared_preferences_helpter.dart';
 import 'model/detail_result.dart';
 import 'model/dice_list.dart';
 import 'model/history.dart';
@@ -84,6 +85,8 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> _buildDiceActions() {
     final diceList = Provider.of<DiceList>(context);
+    final detailResult = Provider.of<DetailResult>(context);
+    final resultDialog = Provider.of<ResultDialog>(context);
 
     return <Widget>[
       IconButton(
@@ -106,8 +109,11 @@ class _HomePageState extends State<HomePage> {
                   message: 'RESTORE',
                   child: FlatButton(
                     child: const Text('RESTORE'),
-                    onPressed: () {
-                      diceList.restoreDefaultDice();
+                    onPressed: () async {
+                      await SharedPreferencesHelper.clearAll();
+                      await diceList.restoreDefault();
+                      await detailResult.save();
+                      await resultDialog.save();
                       Navigator.pop(context);
                     },
                   ),
