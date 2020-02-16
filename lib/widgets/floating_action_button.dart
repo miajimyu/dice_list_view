@@ -14,8 +14,11 @@ class HomePageFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      child: Icon(Icons.add),
+    const title = 'Add Dice';
+    return FloatingActionButton.extended(
+      icon: Icon(Icons.add),
+      label: const Text(title),
+      tooltip: title,
       onPressed: () {
         showModalBottomSheet<void>(
           context: context,
@@ -32,7 +35,6 @@ class HomePageFAB extends StatelessWidget {
           ),
         );
       },
-      tooltip: 'Add dice',
     );
   }
 }
