@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Dice App'),
-          actions: _selectedIndex == 0 ? null : _buildActions(),
+          actions: _selectedIndex == 0 ? _buildDiceActions() : _buildActions(),
         ),
         drawer: const HomePageDrawer(),
         body: _widgetOptions.elementAt(_selectedIndex),
@@ -80,6 +80,44 @@ class _HomePageState extends State<HomePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
+  }
+
+  List<Widget> _buildDiceActions() {
+    final diceList = Provider.of<DiceList>(context);
+
+    return <Widget>[
+      IconButton(
+        tooltip: 'Restore default dice',
+        icon: const Icon(Icons.restore),
+        onPressed: () {
+          showDialog<void>(
+            context: context,
+            builder: (_) => AlertDialog(
+              content: const Text('Restore default dice?'),
+              actions: <Widget>[
+                Tooltip(
+                  message: 'CANCEL',
+                  child: FlatButton(
+                    child: const Text('CANCEL'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+                Tooltip(
+                  message: 'RESTORE',
+                  child: FlatButton(
+                    child: const Text('RESTORE'),
+                    onPressed: () {
+                      diceList.restoreDefaultDice();
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    ];
   }
 
   List<Widget> _buildActions() {

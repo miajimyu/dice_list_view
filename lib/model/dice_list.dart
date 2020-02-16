@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dice.dart';
 
-List<Dice> defaultlist = [
+final List<Dice> defaultlist = [
   Dice(faces: 2),
   Dice(number: 2, faces: 3),
   Dice(faces: 4),
@@ -23,6 +23,14 @@ class DiceList extends ChangeNotifier {
   }
 
   List<Dice> list = [];
+
+  void restoreDefaultDice() {
+    list
+      ..clear()
+      ..addAll(defaultlist);
+    _save();
+    notifyListeners();
+  }
 
   void roll(int index) {
     list[index]?.roll();
@@ -93,8 +101,7 @@ class DiceList extends ChangeNotifier {
     final length = prefs.getInt('diceListLength');
 
     if (length == null) {
-      list = defaultlist;
-      notifyListeners();
+      restoreDefaultDice();
       return;
     }
 
@@ -108,8 +115,8 @@ class DiceList extends ChangeNotifier {
         ),
       );
     }
+    await _save();
     notifyListeners();
-    return;
   }
 
   Future<void> _save() async {
