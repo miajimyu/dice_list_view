@@ -53,8 +53,9 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
         _buildAddForm(),
         Tooltip(
           message: 'Add',
-          child: FlatButton(
-            child: const Text(
+          child: FlatButton.icon(
+            icon: Icon(Icons.add, color: Colors.white),
+            label: const Text(
               'Add',
               style: TextStyle(color: Colors.white),
             ),
