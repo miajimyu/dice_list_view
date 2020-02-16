@@ -17,7 +17,7 @@ class HomePageFAB extends StatelessWidget {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
-        showModalBottomSheet<dynamic>(
+        showModalBottomSheet<void>(
           context: context,
           isScrollControlled: true,
           builder: (context) => ChangeNotifierProvider.value(
