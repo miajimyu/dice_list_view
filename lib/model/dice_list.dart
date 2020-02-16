@@ -3,31 +3,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dice.dart';
 
-final List<Dice> defaultlist = [
-  Dice(faces: 2),
-  Dice(number: 2, faces: 3),
-  Dice(faces: 4),
-  Dice(faces: 6),
-  Dice(number: 2, faces: 6, add: 6),
-  Dice(faces: 10),
-  Dice(faces: 20),
-  Dice(faces: 100),
-];
-
-Dice _currentRemovedDice;
-int _currentRemovedDiceIndex;
-
 class DiceList extends ChangeNotifier {
   DiceList() {
     _load();
   }
-
   List<Dice> list = [];
+  Dice _currentRemovedDice;
+  int _currentRemovedDiceIndex;
+
+  final List<Dice> _defaultlist = [
+    Dice(faces: 2),
+    Dice(number: 2, faces: 3),
+    Dice(faces: 4),
+    Dice(faces: 6),
+    Dice(number: 2, faces: 6, add: 6),
+    Dice(faces: 10),
+    Dice(faces: 20),
+    Dice(faces: 100),
+  ];
 
   void restoreDefaultDice() {
-    list
-      ..clear()
-      ..addAll(defaultlist);
+    list = List.from(_defaultlist);
     _save();
     notifyListeners();
   }
