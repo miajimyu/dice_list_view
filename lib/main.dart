@@ -97,16 +97,22 @@ class _HomePageState extends State<HomePage> {
             builder: (_) => AlertDialog(
               content: const Text('Clear history?'),
               actions: <Widget>[
-                FlatButton(
-                  child: const Text('CANCEL'),
-                  onPressed: () => Navigator.pop(context),
+                Tooltip(
+                  message: 'CANCEL',
+                  child: FlatButton(
+                    child: const Text('CANCEL'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
                 ),
-                FlatButton(
-                  child: const Text('CLEAR'),
-                  onPressed: () {
-                    history.clear();
-                    Navigator.pop(context);
-                  },
+                Tooltip(
+                  message: 'CLEAR',
+                  child: FlatButton(
+                    child: const Text('CLEAR'),
+                    onPressed: () {
+                      history.clear();
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               ],
             ),
