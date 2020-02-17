@@ -1,8 +1,10 @@
-import 'package:dice/model/detail_result.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
+import '../helper/shared_preferences_helpter.dart';
+import '../model/detail_result.dart';
+import '../model/dice_list.dart';
 import '../model/result_dialog.dart';
 
 class HomePageDrawer extends StatelessWidget {
@@ -27,6 +29,52 @@ class HomePageDrawer extends StatelessWidget {
               color: Colors.blue,
             ),
           ),
+          ShowDialogListTile(),
+          ShowDetailResultListTile(),
+          Tooltip(
+            message: 'Restore all settings',
+            child: ListTile(
+              leading: const Icon(Icons.restore),
+              title: const Text('Restore all settings'),
+              onTap: () {
+                final diceList = Provider.of<DiceList>(context, listen: false);
+                final detailResult =
+                    Provider.of<DetailResult>(context, listen: false);
+                final resultDialog =
+                    Provider.of<ResultDialog>(context, listen: false);
+
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: const Text('Restore all settings?'),
+                    content: const Text('Restore dices and settings.'),
+                    actions: <Widget>[
+                      Tooltip(
+                        message: 'CANCEL',
+                        child: FlatButton(
+                          child: const Text('CANCEL'),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ),
+                      Tooltip(
+                        message: 'RESTORE',
+                        child: FlatButton(
+                          child: const Text('RESTORE'),
+                          onPressed: () async {
+                            await SharedPreferencesHelper.clearAll();
+                            await diceList.restoreDefault();
+                            await detailResult.restoreDefault();
+                            await resultDialog.restoreDefault();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
           Tooltip(
             message: 'Licenses',
             child: ListTile(
@@ -42,8 +90,6 @@ class HomePageDrawer extends StatelessWidget {
               },
             ),
           ),
-          ShowDialogListTile(),
-          ShowDetailResultListTile(),
         ],
       ),
     );

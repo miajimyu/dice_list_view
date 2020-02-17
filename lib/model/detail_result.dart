@@ -12,7 +12,8 @@ class DetailResult extends ChangeNotifier {
 
   bool get isShowDetailResult => _isShowDetailResult;
 
-  Future<void> save() async {
+  Future<void> restoreDefault() async {
+    _isShowDetailResult = SharedPreferencesHelper.defalShowDetailResult;
     await _saveLocalStrage();
     notifyListeners();
   }

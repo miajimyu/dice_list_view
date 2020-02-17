@@ -12,7 +12,8 @@ class ResultDialog extends ChangeNotifier {
 
   bool get isShowResultDialog => _isShowResultDialog;
 
-  Future<void> save() async {
+  Future<void> restoreDefault() async {
+    _isShowResultDialog = SharedPreferencesHelper.defaultIsShowDetailResult;
     await _saveLocalStrage();
     notifyListeners();
   }
