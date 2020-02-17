@@ -14,11 +14,9 @@ class HomePageFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Add Dice';
-    return FloatingActionButton.extended(
-      icon: Icon(Icons.add),
-      label: const Text(title),
-      tooltip: title,
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      tooltip: 'Add Dice',
       onPressed: () {
         showModalBottomSheet<void>(
           context: context,
