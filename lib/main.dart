@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'helper/shared_preferences_helpter.dart';
 import 'model/detail_result.dart';
 import 'model/dice_list.dart';
 import 'model/history.dart';
