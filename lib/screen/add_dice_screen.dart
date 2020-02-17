@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -155,7 +153,7 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
           );
         });
       },
-      keyboardType: Platform.isIOS ? TextInputType.text : TextInputType.number,
+      keyboardType: TextInputType.number,
       validator: (newValue) {
         if (newValue.isEmpty) {
           return null;
