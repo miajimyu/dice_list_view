@@ -115,12 +115,20 @@ class DiceCard extends StatelessWidget {
 
     Text _buildTitle() {
       final baseTitle = '${item?.name} : ${item?.result}';
-
       if (detailResult.isShowDetailResult) {
         return Text('$baseTitle ${item?.results}');
       }
-
       return Text(baseTitle);
+    }
+
+    Widget _buildResults() {
+      if (detailResult.isShowDetailResult) {
+        return Center(
+          child: Text('${item.results}'),
+        );
+      } else {
+        return Container();
+      }
     }
 
     return Card(
@@ -144,9 +152,7 @@ class DiceCard extends StatelessWidget {
                 ),
                 children: <Widget>[
                   Center(child: Text('${item.name}')),
-                  detailResult.isShowDetailResult
-                      ? Center(child: Text('${item.results}'))
-                      : Container(),
+                  _buildResults(),
                 ],
               ),
             );
