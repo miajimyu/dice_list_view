@@ -1,12 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../model/detail_result.dart';
 import '../model/history.dart';
+import '../widgets/dice_icon.dart';
 
 class HistoryScreen extends StatelessWidget {
   @override
@@ -14,7 +12,16 @@ class HistoryScreen extends StatelessWidget {
     return Consumer<History>(
       builder: (context, value, child) {
         if (value.historys.isEmpty) {
-          return Center(child: DiceIcon());
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                DiceIcon(),
+                const SizedBox(height: 20),
+                Text('Empty', style: Theme.of(context).textTheme.headline4),
+              ],
+            ),
+          );
         } else {
           return ListView.separated(
             separatorBuilder: (context, index) => Divider(
@@ -33,46 +40,6 @@ class HistoryScreen extends StatelessWidget {
           );
         }
       },
-    );
-  }
-}
-
-class DiceIcon extends StatelessWidget {
-  Icon _buildIcon() {
-    final result = Random().nextInt(6) + 1;
-    switch (result) {
-      case 1:
-        return Icon(FontAwesomeIcons.diceOne, size: 50);
-        break;
-      case 2:
-        return Icon(FontAwesomeIcons.diceTwo, size: 50);
-        break;
-      case 3:
-        return Icon(FontAwesomeIcons.diceThree, size: 50);
-        break;
-      case 4:
-        return Icon(FontAwesomeIcons.diceFour, size: 50);
-        break;
-      case 5:
-        return Icon(FontAwesomeIcons.diceFive, size: 50);
-        break;
-      case 6:
-        return Icon(FontAwesomeIcons.diceSix, size: 50);
-        break;
-      default:
-        return Icon(FontAwesomeIcons.diceD20, size: 50);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        _buildIcon(),
-        const SizedBox(height: 20),
-        Text('Empty', style: Theme.of(context).textTheme.headline4),
-      ],
     );
   }
 }

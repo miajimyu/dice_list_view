@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/dice_list.dart';
+import '../widgets/dismissible_background.dart';
 
 class DiceScreen extends StatefulWidget {
   @override
@@ -159,27 +160,6 @@ class DiceCard extends StatelessWidget {
           }
         },
         trailing: Icon(Icons.reorder),
-      ),
-    );
-  }
-}
-
-class DismissibleBackground extends StatelessWidget {
-  const DismissibleBackground({
-    Key key,
-    @required this.alignment,
-  }) : super(key: key);
-
-  final AlignmentGeometry alignment;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: alignment,
-      color: Colors.red,
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Icon(Icons.delete_forever),
       ),
     );
   }
