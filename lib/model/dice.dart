@@ -49,12 +49,12 @@ class Dice {
     return '${numberStr}D$facesStr$addStr';
   }
 
-  int get result {
+  String get result {
     if (_results.isEmpty) {
-      return 0;
+      return '';
     }
 
-    return _results.reduce((value, element) => value + element) + add;
+    return '${_results.reduce((value, element) => value + element) + add}';
   }
 
   List<int> get results => _results;

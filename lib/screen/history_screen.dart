@@ -52,7 +52,7 @@ class ListItem extends StatelessWidget {
     this.time,
   });
 
-  final int result;
+  final String result;
   final String name;
   final List<int> results;
   final DateTime time;
@@ -70,7 +70,7 @@ class ListItem extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  result.toString(),
+                  result,
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ),

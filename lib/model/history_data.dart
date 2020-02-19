@@ -9,7 +9,7 @@ class HistoryData {
   });
 
   final String diceName;
-  final int result;
+  final String result;
   final List<int> results;
   final DateTime dateTime;
 }
