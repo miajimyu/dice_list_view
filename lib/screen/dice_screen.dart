@@ -116,9 +116,13 @@ class DiceCard extends StatelessWidget {
 
     Text _buildTitle() {
       final baseTitle = '${item?.name} : ${item?.result}';
-      if (detailResult.isShowDetailResult) {
+
+      final isShowResults =
+          detailResult.isShowDetailResult && item.results.isNotEmpty;
+      if (isShowResults) {
         return Text('$baseTitle ${item?.results}');
       }
+
       return Text(baseTitle);
     }
 
