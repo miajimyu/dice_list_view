@@ -10,7 +10,7 @@ class SharedPreferencesHelper {
   }
 
   // Detail Result
-  static const defalShowDetailResult = false;
+  static const defalShowDetailResult = true;
   static const keyIsShowDetailResult = 'isShowDetailResult';
   static Future<void> saveDetailResult(
       {@required bool isShowDetailResult}) async {
