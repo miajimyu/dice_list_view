@@ -21,10 +21,8 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: const Color(0xff757575),
       child: Container(
         padding: const EdgeInsets.all(20),
-        // color: Colors.black,
         child: Form(
           key: _key,
           autovalidate: true,
