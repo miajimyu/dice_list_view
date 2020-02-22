@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Dice App'),
-          actions: _selectedIndex == 0 ? null : _buildActions(),
+          actions: _selectedIndex == 0 ? _builDicedActions() : _buildActions(),
         ),
         drawer: const HomePageDrawer(),
         body: _widgetOptions.elementAt(_selectedIndex),
@@ -81,6 +81,43 @@ class _HomePageState extends State<HomePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
+  }
+
+  List<Widget> _builDicedActions() {
+    final diceList = Provider.of<DiceList>(context, listen: false);
+    final history = Provider.of<History>(context, listen: false);
+    final settings = Provider.of<ResultDialog>(context);
+    return <Widget>[
+      IconButton(
+        tooltip: 'Roll all dices',
+        icon: const Icon(Icons.casino),
+        onPressed: () {
+          for (var i = 0; i < diceList.list.length; i++) {
+            diceList.roll(i);
+            history.add(diceList.list[i]);
+          }
+
+          if (settings.isShowResultDialog) {
+            showDialog<void>(
+              context: context,
+              builder: (_) => SimpleDialog(
+                children: <Widget>[
+                  Center(
+                    child: Text(
+                      'Rolled all dices',
+                      style: TextStyle(
+                        fontSize:
+                            Theme.of(context).textTheme.headline4.fontSize,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
+        },
+      )
+    ];
   }
 
   List<Widget> _buildActions() {

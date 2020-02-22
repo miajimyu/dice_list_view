@@ -15,6 +15,7 @@ class History extends ChangeNotifier {
         dateTime: DateTime.now(),
       ),
     );
+    notifyListeners();
   }
 
   void clear() {
