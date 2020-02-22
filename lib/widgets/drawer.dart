@@ -81,9 +81,11 @@ class HomePageDrawer extends StatelessWidget {
               title: const Text('Licenses'),
               onTap: () async {
                 final packageInfo = await PackageInfo.fromPlatform();
+                final name = packageInfo.appName;
                 final version = packageInfo.version;
                 showLicensePage(
                   context: context,
+                  applicationName: name,
                   applicationVersion: version,
                 );
               },

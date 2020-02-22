@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Dice App'),
+          title: const Text('DiceListView'),
           actions: _selectedIndex == 0 ? _builDicedActions() : _buildActions(),
         ),
         drawer: const HomePageDrawer(),
