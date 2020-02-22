@@ -1,3 +1,4 @@
+import 'package:dice/model/history.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
@@ -38,12 +39,12 @@ class HomePageDrawer extends StatelessWidget {
                     Provider.of<DetailResult>(context, listen: false);
                 final resultDialog =
                     Provider.of<ResultDialog>(context, listen: false);
+                final history = Provider.of<History>(context, listen: false);
 
                 showDialog<void>(
                   context: context,
                   builder: (_) => AlertDialog(
                     title: const Text('Restore all settings?'),
-                    content: const Text('Restore dices and settings.'),
                     actions: <Widget>[
                       Tooltip(
                         message: 'CANCEL',
@@ -61,6 +62,8 @@ class HomePageDrawer extends StatelessWidget {
                             await diceList.restoreDefault();
                             await detailResult.restoreDefault();
                             await resultDialog.restoreDefault();
+                            diceList.clearResults();
+                            history.clear();
                             Navigator.pop(context);
                           },
                         ),

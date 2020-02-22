@@ -57,6 +57,12 @@ class DiceList extends ChangeNotifier {
     _popRemovedDice();
   }
 
+  void clearResults() {
+    for (final item in list) {
+      item.clearResults();
+    }
+  }
+
   void _pushRemovedDice({int index, Dice dice}) {
     _currentRemovedDiceIndex = index;
     _currentRemovedDice = dice;

@@ -65,4 +65,8 @@ class Dice {
       _results?.add(Random().nextInt(faces) + 1);
     }
   }
+
+  void clearResults() {
+    _results.clear();
+  }
 }
