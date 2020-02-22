@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      darkTheme: ThemeData.dark(),
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider<History>(create: (_) => History()),

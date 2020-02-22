@@ -17,16 +17,12 @@ class HomePageDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          DrawerHeader(
-            child: const Text(
+          const DrawerHeader(
+            child: Text(
               'Menu',
               style: TextStyle(
-                color: Colors.white,
                 fontSize: 24,
               ),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.blue,
             ),
           ),
           ShowDialogListTile(),

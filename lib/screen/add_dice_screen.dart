@@ -21,10 +21,10 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xff757575),
+      // color: const Color(0xff757575),
       child: Container(
         padding: const EdgeInsets.all(20),
-        color: Colors.white,
+        // color: Colors.black,
         child: Form(
           key: _key,
           autovalidate: true,
@@ -43,23 +43,16 @@ class _AddDiceScreenState extends State<AddDiceScreen> {
         Text(
           'Add Dice ${dice.fullName}',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.blue,
-          ),
+          style: const TextStyle(fontSize: 30),
         ),
         _buildNumberForm(),
         _buildFacesForm(),
         _buildAddForm(),
         Tooltip(
           message: 'Add',
-          child: FlatButton.icon(
-            icon: Icon(Icons.add, color: Colors.white),
-            label: const Text(
-              'Add',
-              style: TextStyle(color: Colors.white),
-            ),
-            color: Colors.blue,
+          child: RaisedButton.icon(
+            icon: const Icon(Icons.add),
+            label: const Text('Add'),
             onPressed: () {
               if (_key.currentState.validate()) {
                 diceList.add(dice);
