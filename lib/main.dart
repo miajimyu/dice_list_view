@@ -17,16 +17,16 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      darkTheme: ThemeData.dark(),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider<History>(create: (_) => History()),
-          ChangeNotifierProvider<DiceList>(create: (_) => DiceList()),
-          ChangeNotifierProvider<ResultDialog>(create: (_) => ResultDialog()),
-          ChangeNotifierProvider<DetailResult>(create: (_) => DetailResult()),
-        ],
-        child: HomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<History>(create: (_) => History()),
+        ChangeNotifierProvider<DiceList>(create: (_) => DiceList()),
+        ChangeNotifierProvider<ResultDialog>(create: (_) => ResultDialog()),
+        ChangeNotifierProvider<DetailResult>(create: (_) => DetailResult()),
+      ],
+      child: MaterialApp(
+        darkTheme: ThemeData.dark(),
+        home: HomePage(),
       ),
     );
   }
