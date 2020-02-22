@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'model/detail_result.dart';
 import 'model/dice_list.dart';
 import 'model/history.dart';
-
 import 'model/result_dialog.dart';
 import 'screen/homepage.dart';
 
