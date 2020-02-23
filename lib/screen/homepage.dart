@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../constans.dart';
 import '../model/dice_list.dart';
 import '../model/history.dart';
 import '../model/result_dialog.dart';
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('DiceListView'),
+          title: Text(kAppName),
           actions: _selectedIndex == 0 ? _builDicedActions() : _buildActions(),
         ),
         drawer: const HomePageDrawer(),

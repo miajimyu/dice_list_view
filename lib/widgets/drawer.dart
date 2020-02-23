@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../constans.dart';
 import '../helper/shared_preferences_helpter.dart';
 import '../model/detail_result.dart';
 import '../model/dice_list.dart';
@@ -146,13 +146,14 @@ class LicensesListTile extends StatelessWidget {
         trailing: const Icon(Icons.navigate_next),
         title: const Text('Licenses'),
         onTap: () async {
-          final packageInfo = await PackageInfo.fromPlatform();
-          final name = packageInfo.appName;
-          final version = packageInfo.version;
+          // TODO(miajimyu): package_info do not support for web, yet.
+          // final packageInfo = await PackageInfo.fromPlatform();
+          // final name = packageInfo.appName;
+          // final version = packageInfo.version;
           showLicensePage(
             context: context,
-            applicationName: name,
-            applicationVersion: version,
+            applicationName: kAppName,
+            applicationVersion: kAppVersion,
           );
         },
       ),
