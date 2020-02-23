@@ -143,6 +143,7 @@ class LicensesListTile extends StatelessWidget {
       message: 'Licenses',
       child: ListTile(
         leading: const Icon(Icons.info),
+        trailing: const Icon(Icons.navigate_next),
         title: const Text('Licenses'),
         onTap: () async {
           final packageInfo = await PackageInfo.fromPlatform();
@@ -166,6 +167,7 @@ class GitHubListTile extends StatelessWidget {
       message: 'GitHub',
       child: ListTile(
         leading: const Icon(FontAwesomeIcons.github),
+        trailing: const Icon(Icons.navigate_next),
         title: const Text('GitHub'),
         onTap: () async {
           const url = 'https://github.com/miajimyu/dice_list_view';
