@@ -1,7 +1,9 @@
 import 'package:dice/model/history.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../helper/shared_preferences_helpter.dart';
 import '../model/detail_result.dart';
@@ -28,69 +30,9 @@ class HomePageDrawer extends StatelessWidget {
           ),
           ShowDialogListTile(),
           ShowDetailResultListTile(),
-          Tooltip(
-            message: 'Restore all settings',
-            child: ListTile(
-              leading: const Icon(Icons.restore),
-              title: const Text('Restore all settings'),
-              onTap: () {
-                final diceList = Provider.of<DiceList>(context, listen: false);
-                final detailResult =
-                    Provider.of<DetailResult>(context, listen: false);
-                final resultDialog =
-                    Provider.of<ResultDialog>(context, listen: false);
-                final history = Provider.of<History>(context, listen: false);
-
-                showDialog<void>(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    title: const Text('Restore all settings?'),
-                    actions: <Widget>[
-                      Tooltip(
-                        message: 'CANCEL',
-                        child: FlatButton(
-                          child: const Text('CANCEL'),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ),
-                      Tooltip(
-                        message: 'RESTORE',
-                        child: FlatButton(
-                          child: const Text('RESTORE'),
-                          onPressed: () async {
-                            await SharedPreferencesHelper.clearAll();
-                            await diceList.restoreDefault();
-                            await detailResult.restoreDefault();
-                            await resultDialog.restoreDefault();
-                            diceList.clearResults();
-                            history.clear();
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          Tooltip(
-            message: 'Licenses',
-            child: ListTile(
-              leading: const Icon(Icons.info),
-              title: const Text('Licenses'),
-              onTap: () async {
-                final packageInfo = await PackageInfo.fromPlatform();
-                final name = packageInfo.appName;
-                final version = packageInfo.version;
-                showLicensePage(
-                  context: context,
-                  applicationName: name,
-                  applicationVersion: version,
-                );
-              },
-            ),
-          ),
+          RestoreAllSettingsListTile(),
+          LicensesListTile(),
+          GitHubListTile(),
         ],
       ),
     );
@@ -137,6 +79,100 @@ class _ShowDetailResultListTileState extends State<ShowDetailResultListTile> {
         title: const Text(title),
         value: settings.isShowDetailResult,
         onChanged: (_) => settings.toggleShowDetailResult(),
+      ),
+    );
+  }
+}
+
+class RestoreAllSettingsListTile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: 'Restore all settings',
+      child: ListTile(
+        leading: const Icon(Icons.restore),
+        title: const Text('Restore all settings'),
+        onTap: () {
+          final diceList = Provider.of<DiceList>(context, listen: false);
+          final detailResult =
+              Provider.of<DetailResult>(context, listen: false);
+          final resultDialog =
+              Provider.of<ResultDialog>(context, listen: false);
+          final history = Provider.of<History>(context, listen: false);
+
+          showDialog<void>(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: const Text('Restore all settings?'),
+              actions: <Widget>[
+                Tooltip(
+                  message: 'CANCEL',
+                  child: FlatButton(
+                    child: const Text('CANCEL'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+                Tooltip(
+                  message: 'RESTORE',
+                  child: FlatButton(
+                    child: const Text('RESTORE'),
+                    onPressed: () async {
+                      await SharedPreferencesHelper.clearAll();
+                      await diceList.restoreDefault();
+                      await detailResult.restoreDefault();
+                      await resultDialog.restoreDefault();
+                      diceList.clearResults();
+                      history.clear();
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class LicensesListTile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: 'Licenses',
+      child: ListTile(
+        leading: const Icon(Icons.info),
+        title: const Text('Licenses'),
+        onTap: () async {
+          final packageInfo = await PackageInfo.fromPlatform();
+          final name = packageInfo.appName;
+          final version = packageInfo.version;
+          showLicensePage(
+            context: context,
+            applicationName: name,
+            applicationVersion: version,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class GitHubListTile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: 'GitHub',
+      child: ListTile(
+        leading: const Icon(FontAwesomeIcons.github),
+        title: const Text('GitHub'),
+        onTap: () async {
+          const url = 'https://github.com/miajimyu/dice_list_view';
+          if (await canLaunch(url)) {
+            await launch(url);
+          }
+        },
       ),
     );
   }
