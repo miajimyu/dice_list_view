@@ -1,6 +1,6 @@
-import 'package:dice/helper/shared_preferences_helpter.dart';
 import 'package:flutter/material.dart';
 
+import '../helper/shared_preferences_helpter.dart';
 import 'dice.dart';
 
 class DiceList extends ChangeNotifier {

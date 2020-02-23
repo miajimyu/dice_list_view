@@ -1,3 +1,3 @@
-# dice
+# DiceListView
 
 ![app](./screenshots/app.png)

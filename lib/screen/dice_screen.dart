@@ -1,14 +1,12 @@
-import 'package:dice/model/detail_result.dart';
-import 'package:dice/model/result_dialog.dart';
 import 'package:quiver/iterables.dart';
-
-import 'package:dice/model/dice.dart';
-import 'package:dice/model/history.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../model/detail_result.dart';
+import '../model/dice.dart';
 import '../model/dice_list.dart';
+import '../model/history.dart';
+import '../model/result_dialog.dart';
 import '../widgets/dismissible_background.dart';
 
 class DiceScreen extends StatefulWidget {

@@ -1,4 +1,3 @@
-import 'package:dice/model/history.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
@@ -8,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../helper/shared_preferences_helpter.dart';
 import '../model/detail_result.dart';
 import '../model/dice_list.dart';
+import '../model/history.dart';
 import '../model/result_dialog.dart';
 
 class HomePageDrawer extends StatelessWidget {
