@@ -149,7 +149,7 @@ class DiceCard extends StatelessWidget {
                   child: Text(
                     '${item.result}',
                     style: TextStyle(
-                      fontSize: Theme.of(context).textTheme.headline3.fontSize,
+                      fontSize: Theme.of(context).textTheme.headline2.fontSize,
                     ),
                   ),
                 ),
