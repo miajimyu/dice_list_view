@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(kAppName),
+          title: const Text(kAppName),
           actions: _selectedIndex == 0 ? _builDicedActions() : _buildActions(),
         ),
         drawer: const HomePageDrawer(),
