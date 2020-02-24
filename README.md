@@ -1,3 +1,5 @@
+![deploy](https://github.com/miajimyu/dice_list_view/workflows/deploy/badge.svg)
+
 # DiceListView
 
 ## Screenshots
