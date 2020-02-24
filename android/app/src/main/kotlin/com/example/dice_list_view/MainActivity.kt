@@ -1,4 +1,4 @@
-package com.example.dice_list_view
+package com.miajimyu.dicelistview
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
