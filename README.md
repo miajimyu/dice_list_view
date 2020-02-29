@@ -6,6 +6,10 @@
 
 <img src="./screenshots/app_light.png" height="500" alt="Screenshot"/><img src="./screenshots/app_dark.png" height="500" alt="Screenshot"/>
 
+<a href='https://apps.apple.com/us/app/dicelistview/id1500229187?mt=8'><img src="dev_assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="App Store"></a>
+
+<a href='https://play.google.com/store/apps/details?id=com.miajimyu.dicelistview'><img src="dev_assets/google-play-badge.png" alt="Google Play Store" width=150 ></a>
+
 ## Usage
 
 ### Action 
